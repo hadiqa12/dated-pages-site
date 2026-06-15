@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dated Pages — A Literary Calendar</title>
+  <meta name="description" content="Every day holds a story already written. Dated Pages surfaces a passage from classic literature set on today's exact date." />
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:           #D4A843;
+      --gold-dim:       rgba(212, 168, 67, 0.40);
+      --gold-faint:     rgba(212, 168, 67, 0.15);
+      --gold-faintest:  rgba(212, 168, 67, 0.08);
+      --parchment:      #F2EDD7;
+      --parchment-80:   rgba(242, 237, 215, 0.80);
+      --parchment-50:   rgba(242, 237, 215, 0.50);
+      --parchment-30:   rgba(242, 237, 215, 0.30);
+      --bg-deep:        #1B2E1F;
+      --bg-deeper:      #0F1A12;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Geist', sans-serif;
+      background: linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-deeper) 100%);
+      color: var(--parchment);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif { font-family: 'EB Garamond', Georgia, serif; }
+    .rule  { border: none; border-top: 1px solid rgba(212, 168, 67, 0.14); margin: 0; }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 28px 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 7px;
+      display: block;
+    }
+    .nav-badge {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, 0.50);
+      border: 1px solid rgba(212, 168, 67, 0.18);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 72px;
+      text-align: center;
+    }
+    .hero-logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      margin: 0 auto 32px;
+      display: block;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40);
+    }
+    .hero-overline {
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(3.8rem, 12vw, 5.8rem);
+      font-weight: 500;
+      line-height: 1.04;
+      color: var(--parchment);
+      margin-bottom: 10px;
+      letter-spacing: 0.01em;
+    }
+    .hero-subtitle {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-style: italic;
+      color: var(--parchment-50);
+      margin-bottom: 48px;
+      letter-spacing: 0.02em;
+    }
+    .hero-divider {
+      height: 56px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+      margin: 0 auto 48px;
+    }
+    .hero-body {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.22rem;
+      line-height: 1.78;
+      color: var(--parchment-80);
+      max-width: 540px;
+      margin: 0 auto 44px;
+    }
+
+    /* ── PLAY STORE BUTTON ── */
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--gold-faint);
+      border: 1px solid var(--gold-dim);
+      border-radius: 10px;
+      padding: 13px 22px;
+      text-decoration: none;
+      color: var(--parchment);
+      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    }
+    .store-btn:hover  { background: rgba(212, 168, 67, 0.12); border-color: var(--gold); }
+    .store-btn:active { transform: scale(0.97); }
+    .store-btn-icon { flex-shrink: 0; }
+    .store-btn-text { text-align: left; }
+    .store-btn-pre  {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--parchment-50);
+      margin-bottom: 1px;
+    }
+    .store-btn-label {
+      display: block;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--parchment-80);
+      line-height: 1.1;
+    }
+
+    /* ── APP PREVIEW (date + clock) ── */
+    .app-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto 52px;
+    }
+    .preview-day-name {
+      font-family: 'Geist', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, 0.50);
+    }
+    .preview-day-number {
+      font-family: 'Geist', sans-serif;
+      font-size: clamp(5.5rem, 18vw, 7rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--parchment);
+      font-variant-numeric: tabular-nums;
+    }
+    .preview-month-year {
+      font-family: 'Geist', sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: rgba(242, 237, 215, 0.80);
+    }
+    .preview-month-year span {
+      color: rgba(242, 237, 215, 0.40);
+    }
+    .preview-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(212, 168, 67, 0.25);
+    }
+    .preview-clock {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+    }
+    .clock-digits {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      color: var(--parchment);
+      line-height: 1;
+    }
+    .clock-colon {
+      font-family: 'Geist', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 2px;
+      animation: blink 1s step-start infinite;
+    }
+    .clock-ampm-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 3px;
+      margin-left: 2px;
+    }
+    .clock-ampm {
+      font-family: 'Geist', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, 0.50);
+      line-height: 1;
+    }
+
+    /* coming soon note */
+    .coming-soon {
+      margin-top: 16px;
+      font-size: 0.70rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, 0.28);
+    }
+
+    /* ── SAMPLE CARD ── */
+    .sample-section { padding: 64px 0; }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .card {
+      background: rgba(212, 168, 67, 0.05);
+      border: 1px solid rgba(212, 168, 67, 0.15);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+    }
+    .card-meta-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .card-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+    .card-book   {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--parchment-80);
+      line-height: 1.3;
+    }
+    .card-byline {
+      font-size: 0.72rem;
+      color: rgba(212, 168, 67, 0.44);
+      margin-top: 3px;
+      letter-spacing: 0.04em;
+    }
+    .card-quote {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.08rem;
+      font-style: italic;
+      line-height: 1.72;
+      color: rgba(242, 237, 215, 0.60);
+      border-left: 2px solid rgba(212, 168, 67, 0.30);
+      padding-left: 16px;
+      margin-bottom: 16px;
+    }
+    .card-context {
+      font-size: 0.78rem;
+      line-height: 1.65;
+      color: rgba(212, 168, 67, 0.44);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { padding: 64px 0 72px; }
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(212, 168, 67, 0.10);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'EB Garamond', serif;
+      font-size: 2.4rem;
+      color: var(--gold-dim);
+      line-height: 1;
+      width: 40px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .step-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--parchment-80);
+      margin-bottom: 6px;
+    }
+    .step-desc {
+      font-size: 0.88rem;
+      line-height: 1.70;
+      color: var(--parchment-50);
+    }
+
+    /* ── ABOUT ── */
+    .about-section {
+      padding: 64px 0 80px;
+      border-top: 1px solid rgba(212, 168, 67, 0.12);
+    }
+    .about-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.80;
+      color: var(--parchment-50);
+      margin-bottom: 20px;
+    }
+    .text-link {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-dim);
+      transition: opacity 0.2s;
+    }
+    .text-link:hover { opacity: 0.70; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      padding: 64px 0 80px;
+      text-align: center;
+      border-top: 1px solid rgba(212, 168, 67, 0.12);
+    }
+    .bottom-cta-title {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: var(--parchment-80);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+    .bottom-cta-sub {
+      font-size: 0.85rem;
+      color: var(--parchment-50);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(212, 168, 67, 0.12);
+      padding: 28px 0;
+      text-align: center;
+    }
+    .footer-text {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: rgba(212, 168, 67, 0.25);
+    }
+    .footer-text a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+      transition: opacity 0.2s;
+    }
+    .footer-text a:hover { opacity: 0.60; }
+
+    @media (max-width: 520px) {
+      .hero { padding: 56px 0 56px; }
+      .card { padding: 20px 18px 18px; }
+      .step-num { font-size: 1.9rem; width: 32px; }
+      .store-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="nav-logo serif">
+        <img src="icon.png" alt="Dated Pages logo" />
+        Dated Pages
+      </a>
+      <span class="nav-badge">App</span>
+    </nav>
+
+    <hr class="rule" />
+
+    <!-- HERO -->
+    <section class="hero">
+      <img src="icon.png" alt="Dated Pages" class="hero-logo" />
+      <p class="hero-overline">A Literary Calendar App</p>
+      <h1 class="hero-title serif">Dated&nbsp;Pages</h1>
+      <p class="hero-subtitle">Every day holds a story already written.</p>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-body">
+        Somewhere in the great library of literature, a character is living through
+        this very date — fleeing across a moor, writing a letter never to be sent,
+        gazing at a portrait that will outlast them. <em>Dated Pages</em> finds them
+        for you, one day at a time.
+      </p>
+
+      <!-- App date + clock preview -->
+      <div class="app-preview">
+        <p class="preview-day-name">Monday</p>
+        <p class="preview-day-number">19</p>
+        <p class="preview-month-year">January <span>2026</span></p>
+        <div class="preview-divider"></div>
+        <div class="preview-clock">
+          <span class="clock-digits">01</span>
+          <span class="clock-colon">:</span>
+          <span class="clock-digits">42</span>
+          <div class="clock-ampm-wrap">
+            <span class="clock-ampm">PM</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <hr class="rule" />
+
+  <!-- SAMPLE ENTRY -->
+  <div class="container">
+    <section class="sample-section">
+      <p class="section-label">On This Day in Literature &mdash; 19 January</p>
+      <div class="card">
+        <div class="card-meta-row">
+          <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          <div>
+            <p class="card-book">Jane Eyre</p>
+            <p class="card-byline">Charlotte Bront&euml;, 1847 &middot; Jane Eyre</p>
+          </div>
+        </div>
+        <blockquote class="card-quote">
+          &ldquo;Five o&rsquo;clock had hardly struck on the morning of the 19th of January,
+          when Bessie brought a candle into my closet and found me already up and nearly
+          dressed. I had risen half-an-hour before her entrance, and had washed my face,
+          and put on my clothes by the light of a half-moon just setting, whose rays
+          streamed through the narrow window near my crib. I was to leave Gateshead that
+          day by a coach which passed the lodge gates at six A.M.&rdquo;
+        </blockquote>
+        <p class="card-context">
+          Jane&rsquo;s departure from Gateshead and the Reeds. She wakes before dawn on
+          January 19th to catch the coach that will carry her to Lowood — the first step
+          of a lifelong journey away from cruelty and toward self-determination.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- STORE BUTTON -->
+  <div class="container" style="padding-top: 56px; padding-bottom: 56px; text-align: center;">
+    <!-- Replace href="#" with your Play Store URL when live -->
+    <a href="#" class="store-btn" aria-label="Get it on Google Play">
+      <svg class="store-btn-icon" xmlns="http://www.w3.org/2000/svg"
+           width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#D4A843"
+          d="M3.18 23.76c.38.21.82.23 1.22.04l11.62-6.71-2.59-2.59-10.25 9.26z"/>
+        <path fill="rgba(212,168,67,0.55)"
+          d="M20.82 10.26 17.4 8.32l-2.9 2.9 2.9 2.9 3.44-1.98a1.4 1.4 0 0 0 0-1.88z"/>
+        <path fill="rgba(212,168,67,0.75)"
+          d="M3.18.24C2.76.46 2.5.92 2.5 1.5v21c0 .58.26 1.04.68 1.26l10.6-11.26L3.18.24z"/>
+        <path fill="rgba(212,168,67,0.90)"
+          d="M4.4.2 15.62 6.7 13.03 9.3 3.18.24C3.55.04 4.01.0 4.4.2z"/>
+      </svg>
+      <span class="store-btn-text">
+        <span class="store-btn-pre">Get it on</span>
+        <span class="store-btn-label">Google Play</span>
+      </span>
+    </a>
+    <p class="coming-soon">Coming soon to the App Store</p>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- HOW IT WORKS -->
+  <div class="container">
+    <section class="how-section">
+      <p class="section-label">How It Works</p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num serif">I</span>
+          <div>
+            <p class="step-title">Open the app on any day</p>
+            <p class="step-desc">
+              Dated Pages knows today's date and your timezone automatically.
+              No account, no setup — just open it.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num serif">II</span>
+          <div>
+            <p class="step-title">Read what the day holds</p>
+            <p class="step-desc">
+              A passage surfaces from a classic work in which this exact date is named
+              or strongly implied — the book, author, character, and the context that
+              gives it weight.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num serif">III</span>
+          <div>
+            <p class="step-title">Return tomorrow</p>
+            <p class="step-desc">
+              A different date, a different voice. The calendar turns with you through
+              the year, accumulating a year's worth of literary moments.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num serif">IV</span>
+          <div>
+            <p class="step-title">Contribute a passage</p>
+            <p class="step-desc">
+              Know a scene from a classic that belongs to a particular date?
+              Submit it and help grow the calendar for everyone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- ABOUT -->
+  <div class="container">
+    <section class="about-section">
+      <p class="section-label">About the Project</p>
+      <p class="about-text">
+        <em>Dated Pages</em> grew from a simple observation: the great novels are
+        threaded through with real dates. Diaries and letters carry them openly;
+        mysteries hinge on them; love stories are measured in them. Yet most readers
+        pass those dates without a second thought.
+      </p>
+      <p class="about-text">
+        This app is an attempt to recover them — to make each ordinary morning feel,
+        for a moment, like a page in someone else's story. Entries are drawn from the
+        public domain and curated for passages where the date genuinely matters to
+        the scene.
+      </p>
+      <p class="about-text">
+        The archive grows through community submissions. If you encounter a passage
+        in your reading that belongs to a specific date,
+        <a class="text-link" href="https://forms.gle/S6N1NhxG1zEYQeqT6"
+           target="_blank" rel="noopener noreferrer">please submit it</a>.
+        Every entry is reviewed before it goes in.
+      </p>
+      <p class="about-text">
+        If you&rsquo;d like credit for your find, include your Instagram handle in the
+        submission. On the day your entry appears in the calendar, you&rsquo;ll be
+        celebrated on the Dated Pages Instagram page — a small thank-you for
+        keeping the archive alive.
+      </p>
+    </section>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="container">
+    <section class="bottom-cta">
+      <p class="bottom-cta-title serif">Start reading today.</p>
+      <p class="bottom-cta-sub">A new passage every morning.</p>
+      <!-- Replace href="#" with your Play Store URL when live -->
+      <a href="#" class="store-btn" aria-label="Get it on Google Play">
+        <svg class="store-btn-icon" xmlns="http://www.w3.org/2000/svg"
+             width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#D4A843"
+            d="M3.18 23.76c.38.21.82.23 1.22.04l11.62-6.71-2.59-2.59-10.25 9.26z"/>
+          <path fill="rgba(212,168,67,0.55)"
+            d="M20.82 10.26 17.4 8.32l-2.9 2.9 2.9 2.9 3.44-1.98a1.4 1.4 0 0 0 0-1.88z"/>
+          <path fill="rgba(212,168,67,0.75)"
+            d="M3.18.24C2.76.46 2.5.92 2.5 1.5v21c0 .58.26 1.04.68 1.26l10.6-11.26L3.18.24z"/>
+          <path fill="rgba(212,168,67,0.90)"
+            d="M4.4.2 15.62 6.7 13.03 9.3 3.18.24C3.55.04 4.01.0 4.4.2z"/>
+        </svg>
+        <span class="store-btn-text">
+          <span class="store-btn-pre">Get it on</span>
+          <span class="store-btn-label">Google Play</span>
+        </span>
+      </a>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p class="footer-text">&copy; 2026 Dated Pages</p>
+    </div>
+  </footer>
+
+</body>
+</html>
