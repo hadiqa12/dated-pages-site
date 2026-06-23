@@ -441,3 +441,16 @@ footer {
 .policy-text:last-child {
   margin-bottom: 0;
 }
+.policy-list {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--parchment-50);
+  margin: 0 0 12px 1.2em;
+  padding: 0;
+}
+.policy-list li {
+  margin-bottom: 8px;
+}
+.policy-list li:last-child {
+  margin-bottom: 0;
+}
