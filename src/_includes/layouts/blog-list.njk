@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+
+  <div class="container">
+
+    {% include "partials/nav-blog.njk" %}
+
+    <hr class="rule" />
+
+    <main class="blog-page">
+      <header class="blog-header">
+        <h1 class="policy-title serif">The Literary Ledger</h1>
+        <p class="blog-header-sub">Notes/thoughts from a reading life: the dates / days authors bothered to name—and why,
+           on quiet days, they feel less like footnotes than like proof that someone else has lived
+            through this hour too.
+        </p>
+      </header>
+
+      <div class="blog-list">
+        {% for post in collections.posts %}
+        <a href="{{ post.url }}" class="blog-card">
+          <p class="blog-card-meta">{{ post.data.cardMeta }}</p>
+          <h2 class="blog-card-title">{{ post.data.titleHtml | safe }}</h2>
+          <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
+          <span class="blog-card-read">Read the essay</span>
+        </a>
+        {% endfor %}
+      </div>
+    </main>
+
+  </div>
+
+  {% include "partials/footer.njk" %}
+</body>
+</html>

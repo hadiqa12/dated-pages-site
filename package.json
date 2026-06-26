@@ -1,5 +1,13 @@
 {
-  "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+  "name": "dated-pages-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
   }
 }

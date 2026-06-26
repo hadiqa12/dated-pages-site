@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+
+  <div class="container">
+
+    {% include "partials/nav-blog.njk" %}
+
+    <hr class="rule" />
+
+    <article class="blog-page">
+      <a href="/blog" class="blog-post-back">&larr; All posts</a>
+
+      <h1 class="blog-post-title serif">{{ titleHtml | safe }}</h1>
+      <p class="blog-post-meta">{{ postMeta }}</p>
+
+      <div class="blog-body">
+        {{ content | safe }}
+      </div>
+
+      {% include "partials/blog-cta.njk" %}
+    </article>
+
+  </div>
+
+  {% include "partials/footer.njk" %}
+</body>
+</html>
