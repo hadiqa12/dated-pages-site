@@ -3,7 +3,7 @@ title: Why I Built Dated Pages
 titleHtml: Why I Built <em>Dated Pages</em>
 cardMeta: The Literary Ledger
 postMeta: The Literary Ledger
-date: July 23, 2026
+date: 2026-07-23
 description: How noticing dates in classic novels led to Dated Pages — a literary calendar app built one passage at a time.
 excerpt: I didn't set out to build an app. I set out to pause on the dates authors bothered to name — and somewhere along the way, that habit became Dated Pages.
 ---

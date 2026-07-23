@@ -3,7 +3,7 @@ title: Why January 19 Matters in Jane Eyre — Dated Pages
 titleHtml: Why January 19 Matters in <em>Jane Eyre</em>
 cardMeta: 19 January · Charlotte Brontë
 postMeta: 1 July
-date: July 1, 2026
+date: 2026-07-01
 description: On January 19, Jane Eyre leaves Gateshead at dawn — a date Charlotte Brontë names explicitly. Why literary dates matter, and how Dated Pages finds them.
 excerpt: Before dawn on a winter morning, a ten-year-old girl wakes alone, dresses by moonlight, and leaves the house where she was never wanted. The date is not incidental — Brontë names it plainly, and that single morning changes everything.
 ---
