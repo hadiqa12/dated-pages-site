@@ -63,6 +63,14 @@ nav {
   padding: 5px 12px;
   border-radius: 2px;
 }
+a.nav-badge {
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+a.nav-badge:hover {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
 .nav-links {
   display: flex;
   align-items: center;
